@@ -156,5 +156,7 @@ end
 addpath('./original');
 berlist=[firstber,berlist];
 plot(berlist);
-hold on;
-main_original;
+xlabel('Round')
+ylabel('BER')
+%hold on;
+% main_original;
