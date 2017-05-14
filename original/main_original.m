@@ -4,7 +4,7 @@ m=5;
 blockSize=32;%2^m=blockSize
 length=512000;
 leakage=0;
-falseNum=round(length*0.05);
+falseNum=round(length*0.01);
 mNum=3;
 seq=round(rand(1,length));
 seqa=seq;
@@ -18,10 +18,11 @@ for i=1:1:falseNum
 end
 seqb=seq;
 ber=berEstimation(seqa,seqb,10);
+nber=berEstimation(seqa,seqb,10);
 res=checkParity(seqa,seqb,blockSize);%res中0代表出错的位置
 seqbTema=vec2mat(seqa,blockSize);
 seqbTemb=vec2mat(seqb,blockSize);
-berlist=[];total=1;
+berlist=[];total=1;d=0;
 while 1
     resultA=[];resultB=[];
     for i=1:1:size(res,1)
@@ -43,6 +44,11 @@ while 1
             leakage=leakage+1;
         end
     end
+    
+    podd=(1-(1-2*nber)^32)/2;
+    dt=length/blockSize+length/blockSize*podd*log2(blockSize);
+    d=d+dt;
+    
     nber=berEstimation(resultA,resultB,10);
     berlist(total)=nber;
     [resultA,resultB]=scrambling(resultA,resultB);

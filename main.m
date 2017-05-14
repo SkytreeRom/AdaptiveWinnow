@@ -3,7 +3,7 @@
 clear;
 blockSize=32;
 length=512000;
-falseNum=round(length*0.03);
+falseNum=round(length*0.01);
 leakageNum=0;
 seq=round(rand(1,length));
 seqa=seq;
